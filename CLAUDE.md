@@ -3,6 +3,8 @@
 A frontend for an X (Twitter)-style app. The API is already deployed — this repo is
 frontend-only, living under `src/frontend/`.
 
+Launch Claude Code from the repo root (not from `src/frontend/`) so this file loads.
+
 ## Stack
 
 - **React 19** + **Vite** + **TypeScript**
@@ -10,6 +12,8 @@ frontend-only, living under `src/frontend/`.
 - **TanStack Query** — server state / data fetching
 - **Tailwind CSS v4** + shadcn-style primitives in `src/frontend/src/components/ui/`
 - **better-auth** (React client) for authentication
+- **react-hook-form** + **zod** (via `@hookform/resolvers`) for forms — see `components/ui/form.tsx`
+- **@hugeicons/react** for icons (not lucide or heroicons)
 - **Vitest** + `@testing-library/react` for tests
 
 ## Structure
@@ -23,7 +27,7 @@ src/frontend/src/
     ui/            Generic, feature-agnostic primitives (button, dialog, form, ...)
   hooks/           Reusable React hooks
   lib/             Framework-agnostic utilities (auth client, formatting, session query)
-  stores/          Client-side state outside React Query (currently: theme)
+  stores/          Client-side state outside React Query, built on TanStack Store (currently: theme)
 ```
 
 ## Conventions
@@ -40,6 +44,20 @@ src/frontend/src/
 - **Env config**: the API base URL is read from `VITE_API_URL` (see
   `src/frontend/.env.example` and `src/frontend/vite.config.ts`'s `/api` proxy) — never hardcode
   the API origin in application code.
+- **UI primitives**: `components/ui/` is generated via the **shadcn** CLI on top of **radix-ui**
+  — don't hand-write new primitives, add them the same way as the existing ones.
+- **Forms**: built with `react-hook-form` + `zod` schemas wired through `components/ui/form.tsx`
+  (see the sign-in/sign-up routes for the pattern).
+
+## Workflow
+
+- Run `pnpm lint` and fix any TypeScript errors before considering any task complete, and
+  prefer editing existing components over creating new ones.
+
+## Issue tracking
+
+- Tracked work items live in `docs/issues/<slug>.md` as markdown, with a `status` field that
+  goes from `open` to `done`. File one with `/create-issue`, resolve it with `/close-issue`.
 
 ## Workshop note
 
