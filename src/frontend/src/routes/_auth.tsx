@@ -1,4 +1,5 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router"
+import { ThemeSwitcher } from "@/components/theme-switcher"
 import { sessionQueryOptions } from "@/lib/session"
 
 export const Route = createFileRoute("/_auth")({
@@ -20,8 +21,13 @@ export const Route = createFileRoute("/_auth")({
 
 function AuthLayout() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background p-4">
-      <Outlet />
+    <div className="flex min-h-screen flex-col bg-background">
+      <div className="flex justify-end p-4">
+        <ThemeSwitcher />
+      </div>
+      <div className="flex flex-1 items-center justify-center p-4 pt-0">
+        <Outlet />
+      </div>
     </div>
   )
 }
